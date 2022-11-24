@@ -33,12 +33,33 @@
                     </thead>
                     <tbody>
 
-                    {% for snipp in snipps %}
+                    {% for snippet in snippets %}
                         <tr>
                             <td scope="row">1</td>
-                            <td><a href="{% url 'snippet-detail' snipp.id %}">{{ snipp.name }}</a></td>
-                            <td>{{ snipp.creation_date }}</td>
-                            <td>{{ snipp.user.username|default:"Anonimous" }}</td>
+                            <td>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{% url 'snippet-detail' snippet.id %}">{{ snippet.name }}</a>
+                                    </div>
+                                    {% if request.user.is_authenticated %}
+                                        <div class="col">
+                                            <a href="{% url 'snippet-delete' snippet.id %}">
+                                                <i style="color:red" class="fa-regular fa-trash-can"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="{% url 'snippet-delete' snippet.id %}">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+
+                            </td>
+                            <td>{{ snippet.creation_date }}</td>
+                            <td>{{ snippet.user.username|default:"Anonimous" }}</td>
                         </tr>
                     {% endfor %}
 

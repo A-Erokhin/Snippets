@@ -38,21 +38,26 @@ def add_snippet_page(request):
 
 
 def snippets_page(request):
-    snipps = Snippet.objects.all()
-    context = {'snipps': snipps}
-    return render(request, 'pages/view_snippets.html', context)
-
-def my_snippets_page(request):
-    # if request.method == 'POST':
-    #     username = request.POST.get("username")
-    #     password = request.POST.get("password")
-    #     user = auth.authenticate(request, username=username, password=password)
-    snipps = Snippet.objects.filter(user=request.user)
+    # Извл. query параметр
+    filter = request.GET.get('filter')
+    snippets = Snippet.objects.all()
+    pagename = 'Просмотр сниппетов'
+    if filter:
+        snippets = snippets.filter(user=request.user)
+        pagename = 'Мои Сниппеты'
     context = {
-        'pagename': 'МОИ Сниппеты',
-        'snipps': snipps
+        'pagename': pagename,
+        'snippets': snippets
     }
     return render(request, 'pages/view_snippets.html', context)
+
+# def my_snippets_page(request):
+#     snipps = Snippet.objects.filter(user=request.user)
+#     context = {
+#         'pagename': 'МОИ Сниппеты',
+#         'snipps': snipps
+#     }
+#     return render(request, 'pages/view_snippets.html', context)
 
 def snippet_detail(request, id):
     try:
@@ -123,6 +128,11 @@ def comment_add(request):
             comment.save()
             return redirect("snippet-detail", snippet_id)
     raise Http404
+
+def snippet_delete(request, snippet_id):
+    snippet = Snippet.objects.get(id=snippet_id)
+    snippet.delete
+    return redirect("view_snippets", snippet_id)
 
 # def comments_list(request):
 

@@ -24,7 +24,7 @@
                     </li>
                     {% if request.user.is_authenticated %}
                         <li class="form-inline">
-                            <a class="btn btn-outline-success" href="{% url 'snippets-my' %}">
+                            <a class="btn btn-outline-success" href="{% url 'snippets-list' %}?filter=my">
                                 Мои сниппеты
                             </a>
                         </li>
