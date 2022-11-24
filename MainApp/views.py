@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
-from MainApp.forms import SnippetForm, UserRegistrationForm
+from MainApp.forms import SnippetForm, UserRegistrationForm, CommentForm
 from django.contrib import auth
 from django.shortcuts import redirect
 
@@ -40,7 +40,18 @@ def add_snippet_page(request):
 def snippets_page(request):
     snipps = Snippet.objects.all()
     context = {'snipps': snipps}
-    # context = {'pagename': 'Просмотр сниппетов'}
+    return render(request, 'pages/view_snippets.html', context)
+
+def my_snippets_page(request):
+    # if request.method == 'POST':
+    #     username = request.POST.get("username")
+    #     password = request.POST.get("password")
+    #     user = auth.authenticate(request, username=username, password=password)
+    snipps = Snippet.objects.filter(user=request.user)
+    context = {
+        'pagename': 'МОИ Сниппеты',
+        'snipps': snipps
+    }
     return render(request, 'pages/view_snippets.html', context)
 
 def snippet_detail(request, id):
@@ -48,8 +59,12 @@ def snippet_detail(request, id):
         snipp = Snippet.objects.get(id=id)
     except ObjectDoesNotExist:
         raise Http404(f"Сниппет с id={id} не найден")
+    comment_form = CommentForm()
+    comments = snipp.comments.all()
     context = {
-        "snipp": snipp
+        "snipp": snipp,
+        "comment_form": comment_form,
+        "comments": comments,
     }
     return render(request, 'pages/snippet-detail.html', context)
 
@@ -90,6 +105,25 @@ def registration(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('home')
         else:
-            pass
-        return redirect('home')
+            context = {
+                'form': form
+            }
+            return render(request, 'pages/registration.html', context)
+
+def comment_add(request):
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        snippet_id = request.POST["snippet_id"]
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.snippet = Snippet.objects.get(id=snippet_id)
+            comment.save()
+            return redirect("snippet-detail", snippet_id)
+    raise Http404
+
+# def comments_list(request):
+
+
