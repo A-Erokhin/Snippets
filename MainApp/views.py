@@ -1,10 +1,12 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
 from MainApp.models import Snippet
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from MainApp.forms import SnippetForm, UserRegistrationForm, CommentForm
 from django.contrib import auth
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -45,9 +47,25 @@ def snippets_page(request):
     if filter:
         snippets = snippets.filter(user=request.user)
         pagename = 'Мои Сниппеты'
+    lang = request.GET.get("lang")
+    # print(f"{lang}")
+    if lang is not None:
+        snippets = snippets.filter(lang=lang)
+    sort = request.GET.get("sort")
+    if sort == 'name':
+        snippets = snippets.order_by("name")
+        sort = '-name'
+    elif sort == '-name' or sort == 'init':
+        snippets = snippets.order_by("-name")
+        sort = 'name'
+    if sort is None:
+        sort = 'init'
+    print(f"{sort}")
     context = {
         'pagename': pagename,
-        'snippets': snippets
+        'snippets': snippets,
+        'lang': lang,
+        'sort': sort
     }
     return render(request, 'pages/view_snippets.html', context)
 
@@ -129,9 +147,12 @@ def comment_add(request):
             return redirect("snippet-detail", snippet_id)
     raise Http404
 
+@login_required
 def snippet_delete(request, snippet_id):
     snippet = Snippet.objects.get(id=snippet_id)
-    snippet.delete
+    if snippet.user != request:
+        raise PermissionDenied
+    snippet.delete()
     return redirect("view_snippets", snippet_id)
 
 # def comments_list(request):

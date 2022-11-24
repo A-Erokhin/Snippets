@@ -22,12 +22,30 @@
 
         <div class="row">
             <div class="col">
+                <form method="GET">
+                    <select name="lang" id="id_lang">
+                        <option value="py" {% if lang == py %}selected{% endif %}>python</option>
+                        <option value="js" {% if lang == js %}selected{% endif %}>javascript</option>
+                        <option value="cpp" {% if lang == cpp %}selected{% endif %}>C++</option>
+                    </select>
+                    <button type="submit">Применить</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Название</th>
+                        <th scope="col">
+                            <a href="?sort={{ sort }}"> Название </a>
+                            {% if sort == 'name' %}<i class="fa-solid fa-sort-up"></i>
+                            {% elif sort == '-name' %}<i class="fa-solid fa-sort-down"></i>{% endif %}
+                        </th>
                         <th scope="col">Дата создания</th>
+                        <th scope="col">Язык</th>
                         <th scope="col">Автор</th>
                     </tr>
                     </thead>
@@ -39,9 +57,11 @@
                             <td>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <a href="{% url 'snippet-detail' snippet.id %}">{{ snippet.name }}</a>
-                                    </div>
+                                        <div class="col">
+                                            <a href="{% url 'snippet-detail' snippet.id %}">{{ snippet.name }}</a>
+
+                                        </div>
+
                                     {% if request.user.is_authenticated %}
                                         <div class="col">
                                             <a href="{% url 'snippet-delete' snippet.id %}">
@@ -59,6 +79,7 @@
 
                             </td>
                             <td>{{ snippet.creation_date }}</td>
+                            <td>{{ snippet.lang }}</td>
                             <td>{{ snippet.user.username|default:"Anonimous" }}</td>
                         </tr>
                     {% endfor %}

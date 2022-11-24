@@ -6,7 +6,7 @@ from MainApp import views
 urlpatterns = [
     path('', views.index_page, name='home'),
     path('snippets/add', views.add_snippet_page, name='add-snippet'),
-    path('snippets/list?filter=my', views.snippets_page, name='snippets-list'),
+    path('snippets/list?filter=my?lang=py', views.snippets_page, name='snippets-list'),
     # path('snippets/my', views.snippets_page, {'my':True}, name='snippets-my'),
     path('snippets/<int:id>',views.snippet_detail, name='snippet-detail'),
     path('snippets/<int:id>/delete',views.snippet_delete, name='snippet-delete'),
