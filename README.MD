@@ -6,3 +6,6 @@ run project:
 
 run django-extensions console: 
 `python manage.py shell_plus --ipython`
+
+'pip freeze > requirements.txt'
+`pip freeze > requirements.txt`
