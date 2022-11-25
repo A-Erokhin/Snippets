@@ -9,3 +9,9 @@ run django-extensions console:
 
 'pip freeze > requirements.txt'
 `pip freeze > requirements.txt`
+
+`python manage.py dumpdata MainApp auth.user > MainApp/fixtures/save_all.json`
+
+`python manage.py flush`
+
+`python manage.py loaddata save_all.json`

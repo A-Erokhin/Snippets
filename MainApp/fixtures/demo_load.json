@@ -1,0 +1,24 @@
+[
+  {
+    "model": "MainApp.snippet",
+    "fields": {
+      "name": "Spam",
+      "lang": "python",
+      "code": "print(\"Hello World\")",
+      "creation_date": "2022-11-23T13:56:08.022Z",
+      "user": 1,
+      "public": true
+    }
+  },
+   {
+    "model": "MainApp.snippet",
+    "fields": {
+      "name": "Spam",
+      "lang": "python",
+      "code": "print(\"Hello World\")",
+      "creation_date": "2022-11-23T13:56:08.022Z",
+      "user": 1,
+      "public": true
+    }
+  }
+]
