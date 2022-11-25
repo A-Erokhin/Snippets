@@ -1,13 +1,13 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
-from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
-from MainApp.forms import SnippetForm, UserRegistrationForm, CommentForm
 from django.contrib import auth
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-
-
+from MainApp.models import Snippet
+from MainApp.forms import SnippetForm, UserRegistrationForm, CommentForm
+from django.contrib.auth.models import User
+from django.db.models import Count
 
 
 def index_page(request):
@@ -23,20 +23,15 @@ def add_snippet_page(request):
             'form': form
         }
         return render(request, 'pages/add_snippet.html', context)
-    elif request.method == "POST":
-        # print("form data = ", list(request.POST.items()))
-        # snippet = Snippet(
-        #     name=request.POST["name"],
-        #     lang=request.POST["lang"],
-        #     code=request.POST["code"]
-        # )
-        # snippet.save()
+    if request.method == "POST":
         form = SnippetForm(request.POST)
         if form.is_valid():
             snippet = form.save(commit=False)
             snippet.user = request.user
             snippet.save()
-        return redirect("snippets-list")
+            # form.save()
+            return redirect("snippets-list")
+        return render(request, 'add_snippet.html', {'form':form})
 
 
 def snippets_page(request):
@@ -44,13 +39,22 @@ def snippets_page(request):
     filter = request.GET.get('filter')
     snippets = Snippet.objects.all()
     pagename = 'Просмотр сниппетов'
+    users = User.objects.all().annotate(num_snippets=Count('snippet')).filter(num_snippets__gte=1)
+
     if filter:
         snippets = snippets.filter(user=request.user)
         pagename = 'Мои Сниппеты'
+
+    username = request.GET.get('username')
+    if username:
+        filter_user = User.objects.get(username=username)
+        snippets = snippets.filter(user=filter_user)
+
     lang = request.GET.get("lang")
     # print(f"{lang}")
     if lang is not None:
         snippets = snippets.filter(lang=lang)
+
     sort = request.GET.get("sort")
     if sort == 'name':
         snippets = snippets.order_by("name")
@@ -61,11 +65,22 @@ def snippets_page(request):
     if sort is None:
         sort = 'init'
     print(f"{sort}")
+    sort2 = request.GET.get("sort2")
+    if sort2 == 'lang':
+        snippets = snippets.order_by("lang")
+        sort2 = '-lang'
+    elif sort2 == '-lang' or sort2 == 'init':
+        snippets = snippets.order_by("-lang")
+        sort2 = 'lang'
+    if sort2 is None:
+        sort2 = 'init'
+
     context = {
         'pagename': pagename,
         'snippets': snippets,
         'lang': lang,
-        'sort': sort
+        'sort': sort,
+        'users': users,
     }
     return render(request, 'pages/view_snippets.html', context)
 
@@ -157,4 +172,13 @@ def snippet_delete(request, snippet_id):
 
 # def comments_list(request):
 
-
+def users_rating(request):
+    pagename = 'Рейтинг пользователей'
+    users = User.objects.all()
+    # for user in users:
+    #     res = Snippet.objects.filter(user=user).Count
+    context = {
+        'pagename': pagename,
+        'users': users,
+    }
+    return render(request, 'pages/user_rating.html', context)

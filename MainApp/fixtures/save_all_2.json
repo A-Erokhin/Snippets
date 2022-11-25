@@ -1,0 +1,170 @@
+[
+  {
+    "model": "MainApp.snippet",
+    "pk": 1,
+    "fields": {
+      "name": "wetg5",
+      "lang": "python",
+      "code": "ef4gty54",
+      "creation_date": "2022-11-25T11:37:44.877Z",
+      "user": 1,
+      "public": true
+    }
+  },
+  {
+    "model": "MainApp.snippet",
+    "pk": 2,
+    "fields": {
+      "name": "Hello World2",
+      "lang": "js",
+      "code": "3r23rt4",
+      "creation_date": "2022-11-25T11:37:53.288Z",
+      "user": 1,
+      "public": true
+    }
+  },
+  {
+    "model": "MainApp.snippet",
+    "pk": 3,
+    "fields": {
+      "name": "hyjgyjuy",
+      "lang": "c++",
+      "code": "kuykldrty5y",
+      "creation_date": "2022-11-25T11:38:02.426Z",
+      "user": 1,
+      "public": true
+    }
+  },
+  {
+    "model": "MainApp.snippet",
+    "pk": 4,
+    "fields": {
+      "name": "Hello World2",
+      "lang": "c++",
+      "code": "we4tru7i7",
+      "creation_date": "2022-11-25T11:38:22.990Z",
+      "user": 2,
+      "public": true
+    }
+  },
+  {
+    "model": "MainApp.snippet",
+    "pk": 5,
+    "fields": {
+      "name": "sefeg",
+      "lang": "python",
+      "code": "ytjhuy7i789o",
+      "creation_date": "2022-11-25T11:38:29.894Z",
+      "user": 2,
+      "public": true
+    }
+  },
+  {
+    "model": "MainApp.snippet",
+    "pk": 6,
+    "fields": {
+      "name": "wettyy",
+      "lang": "js",
+      "code": "kuiolrduw56u76",
+      "creation_date": "2022-11-25T11:38:37.860Z",
+      "user": 2,
+      "public": true
+    }
+  },
+  {
+    "model": "MainApp.snippet",
+    "pk": 7,
+    "fields": {
+      "name": "dgthyyj",
+      "lang": "python",
+      "code": "gjkikluiliul",
+      "creation_date": "2022-11-25T11:38:56.046Z",
+      "user": 3,
+      "public": true
+    }
+  },
+  {
+    "model": "MainApp.snippet",
+    "pk": 8,
+    "fields": {
+      "name": "Hello World",
+      "lang": "c++",
+      "code": "ikluidsrth",
+      "creation_date": "2022-11-25T11:39:03.952Z",
+      "user": 3,
+      "public": true
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$YF5oMBerDxCxq1g905T3ro$HC/9BOkplj0v5DIR9iF/CV8oVUl04DFDcRrkFOA0B0I=",
+      "last_login": "2022-11-25T11:37:34.316Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@admin.ru",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-11-23T12:52:53.014Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$rNvkBdcmxwCacdBCh3ECTk$A+5ojN60rywTk08EEK40ZP542WQ0ypWypqeBOYTt8oE=",
+      "last_login": "2022-11-25T11:38:12.511Z",
+      "is_superuser": false,
+      "username": "new_user",
+      "first_name": "",
+      "last_name": "",
+      "email": "new@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-11-23T14:23:14.566Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$B27Jg7icMYHhOIDgn6SdQ8$tXqWrx6V+NMQtSsnkISo2DmfSJnLDuWROY8Gn6O8jAw=",
+      "last_login": "2022-11-25T11:38:49.454Z",
+      "is_superuser": false,
+      "username": "test_user",
+      "first_name": "",
+      "last_name": "",
+      "email": "test@test.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-11-24T07:58:59.048Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$B27Jg7icMYHhOIDgn6SdQ8$tXqWrx6V+NMQtSsnkISo2DmfSJnLDuWROY8Gn6O8jAw=",
+      "last_login": "2022-11-24T14:06:47.464Z",
+      "is_superuser": false,
+      "username": "test_user_2",
+      "first_name": "",
+      "last_name": "",
+      "email": "test@test.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-11-24T07:58:59.048Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

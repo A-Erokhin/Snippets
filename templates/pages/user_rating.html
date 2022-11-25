@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Begin page content -->
+<main role="main" class="mt-3 flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>{{ pagename }}</h1>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">
+                             user_id
+                        </th>
+                        <th scope="col">username</th>
+                        <th scope="col">
+                            Всего сниппетов
+                        </th>
+                        <th scope="col">Всего комментариев</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for user in users %}
+                        <tr>
+
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.snippets.count }}</td>
+                            <td>{{ user.comments.count }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+

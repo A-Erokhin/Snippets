@@ -13,7 +13,7 @@ class Snippet(models.Model):
     lang = models.CharField(max_length=30)
     code = models.TextField(max_length=5000)
     creation_date = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE,
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='snippets',
                         blank=True, null=True)
     public = models.BooleanField(default=True)
 
@@ -24,5 +24,5 @@ class Snippet(models.Model):
 class Comment(models.Model):
    text = models.TextField(max_length=2000)
    creation_date = models.DateTimeField(auto_now=True)
-   author = models.ForeignKey(to=User, on_delete=models.CASCADE) # только авторизованные
+   author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='comments') # только авторизованные
    snippet = models.ForeignKey(to=Snippet, on_delete=models.CASCADE, related_name='comments')
